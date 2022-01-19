@@ -1,4 +1,6 @@
-package com.pills.pillstracker.dtos.validators;
+package com.pills.pillstracker.validators;
+
+import com.pills.pillstracker.validators.tags.ContactNumberConstraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

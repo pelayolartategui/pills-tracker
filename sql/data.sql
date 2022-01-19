@@ -1,5 +1,6 @@
-INSERT INTO users (username, password, enabled)
-values ('user', 'pass', 1);
-
-INSERT INTO authorities (username, authority)
-values ('user', 'ROLE_USER');
+INSERT INTO public.roles (name)
+VALUES ('ROLE_ADMIN');
+INSERT INTO public.roles (name)
+VALUES ('ROLE_USER');
+INSERT INTO public.roles (name)
+VALUES ('ROLE_CAREGIVER');

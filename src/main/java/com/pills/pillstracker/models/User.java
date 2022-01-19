@@ -1,6 +1,12 @@
 package com.pills.pillstracker.models;
 
-import lombok.Data;
+import com.pills.pillstracker.validators.tags.ContactNumberConstraint;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Exclude;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,14 +23,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "users",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "contactNumber"),
         @UniqueConstraint(columnNames = "email")
     })
 public class User {
@@ -51,6 +62,10 @@ public class User {
     private String email;
 
     @NotBlank
+    @ContactNumberConstraint
+    private String contactNumber;
+
+    @NotBlank
     @Size(max = 120)
     private String password;
 
@@ -58,6 +73,26 @@ public class User {
     @JoinTable(name = "user_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Exclude
     private Set<Role> roles = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return getClass().hashCode();
+    }
 
 }

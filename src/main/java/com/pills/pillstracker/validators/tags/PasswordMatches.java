@@ -1,4 +1,6 @@
-package com.pills.pillstracker.dtos.validators;
+package com.pills.pillstracker.validators.tags;
+
+import com.pills.pillstracker.validators.PasswordMatchesValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

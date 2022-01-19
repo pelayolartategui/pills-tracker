@@ -1,5 +1,17 @@
 package com.pills.pillstracker.exceptions;
 
-public class PillsTrackerException {
+import lombok.Getter;
+
+
+@Getter
+public class PillsTrackerException extends Exception {
+
+    private final String messageCode;
+
+    public PillsTrackerException(String messageCode) {
+
+        super(messageCode);
+        this.messageCode = messageCode;
+    }
 
 }

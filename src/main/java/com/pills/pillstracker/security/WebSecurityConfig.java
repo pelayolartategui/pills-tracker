@@ -1,7 +1,8 @@
 package com.pills.pillstracker.security;
 
-import com.pills.pillstracker.security.jwt.AuthEntryPointJwt;
-import com.pills.pillstracker.security.jwt.AuthTokenFilter;
+import com.pills.pillstracker.security.handlers.CustomAccessDeniedHandler;
+import com.pills.pillstracker.security.handlers.CustomAuthenticationFailureHandler;
+import com.pills.pillstracker.security.handlers.CustomLogoutSuccessHandler;
 import com.pills.pillstracker.security.services.UserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +12,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 
 @Configuration
@@ -25,17 +27,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
     prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private final UserDetailsService userDetailsService;
-    private final AuthEntryPointJwt unauthorizedHandler;
-    private final AuthTokenFilter authTokenFilter;
 
-    public WebSecurityConfig(UserDetailsService userDetailsService,
-                             AuthEntryPointJwt unauthorizedHandler, AuthTokenFilter authTokenFilter) {
+    public WebSecurityConfig(UserDetailsService userDetailsService) {
 
         this.userDetailsService = userDetailsService;
-        this.unauthorizedHandler = unauthorizedHandler;
-        this.authTokenFilter = authTokenFilter;
     }
 
     @Override
@@ -50,27 +46,55 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http
+            .authorizeRequests()
+            .antMatchers("/admin").hasRole("admin")
+            .antMatchers("/user").hasRole("user")
+            .antMatchers("/anonymous*").anonymous()
+            .antMatchers("/", "/login", "/register", "/assets/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/login")
+            .loginProcessingUrl("/login-check")
+            .defaultSuccessUrl("/home", true)
+            // .failureUrl("/login.html?error=true")
+            .failureHandler(authenticationFailureHandler())
+            .and()
+            .logout()
+            .logoutUrl("/logout")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
+            .logoutSuccessHandler(logoutSuccessHandler())
+            .and()
+            .csrf().disable();
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+
+        return new CustomLogoutSuccessHandler();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+
+        return new CustomAccessDeniedHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+
+        return new CustomAuthenticationFailureHandler();
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
 
         return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        http.cors().and().csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-            .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeRequests()
-            .antMatchers("/", "/login", "/register", "/assets/**").permitAll()
-            .antMatchers("/admin").hasRole("admin")
-            .antMatchers("/user").hasRole("user")
-            .anyRequest().authenticated();
-
-        http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 }
