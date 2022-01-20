@@ -54,13 +54,13 @@ public class UserServiceImpl implements UserService {
     private void checkExistingFields(UserDto userDto) throws UserAlreadyExistException {
 
         if (userRepository.existsByEmail(userDto.getEmail())) {
-            throw new UserAlreadyExistException("err.emailInUse");
+            throw new UserAlreadyExistException("register.err.emailInUse");
 
         } else if (userRepository.existsByUsername(userDto.getUsername())) {
-            throw new UserAlreadyExistException("err.userNameInUse");
+            throw new UserAlreadyExistException("register.err.userNameInUse");
 
         } else if (userRepository.existsByContactNumber(userDto.getContactNumber())) {
-            throw new UserAlreadyExistException("err.contactNumberInUse");
+            throw new UserAlreadyExistException("register.err.contactNumberInUse");
         }
     }
 
