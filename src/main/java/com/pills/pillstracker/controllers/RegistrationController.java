@@ -2,7 +2,9 @@ package com.pills.pillstracker.controllers;
 
 import com.pills.pillstracker.dtos.UserDto;
 import com.pills.pillstracker.exceptions.UserAlreadyExistException;
+import com.pills.pillstracker.metrics.PillsTrackerMetrics;
 import com.pills.pillstracker.services.UserService;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -24,11 +26,14 @@ public class RegistrationController {
 
     private final UserService userService;
     private final MessageSource messages;
+    private final MeterRegistry meterRegistry;
 
-    public RegistrationController(UserService userService, MessageSource messages) {
+    public RegistrationController(UserService userService, MessageSource messages,
+                                  MeterRegistry meterRegistry) {
 
         this.userService = userService;
         this.messages = messages;
+        this.meterRegistry = meterRegistry;
     }
 
     @GetMapping("/register")
@@ -52,6 +57,8 @@ public class RegistrationController {
             result.addError(getError(e));
             return "register";
         }
+        meterRegistry.counter(PillsTrackerMetrics.PT_NUM_SUCCESS_REGISTRY).increment();
+
         return "login";
     }
 

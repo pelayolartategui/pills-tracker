@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/pills-tracker-*-SNAPSHOT.jar
+web: java -javaagent:/app/newrelic/newrelic.jar -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/pills-tracker-*-SNAPSHOT.jar
