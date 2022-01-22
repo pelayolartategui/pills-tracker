@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 public final class PillsTrackerMetrics {
 
     /***********  Metric names  ***********/
-    public static final String PT_NUM_SUCCESS_REGISTRY = "nx_num_success_registries";
+    public static final String PT_NUM_SUCCESS_REGISTRY = "pt_num_success_registries";
 
 }
