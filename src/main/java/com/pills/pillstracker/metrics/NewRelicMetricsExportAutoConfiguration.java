@@ -5,6 +5,7 @@ import com.newrelic.telemetry.micrometer.NewRelicRegistry;
 import com.newrelic.telemetry.micrometer.NewRelicRegistryConfig;
 import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.util.NamedThreadFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
@@ -28,6 +29,12 @@ import java.time.Duration;
 @ConditionalOnClass(NewRelicRegistry.class)
 public class NewRelicMetricsExportAutoConfiguration {
 
+    @Value("${newrelic.app.name}")
+    private String appName;
+
+    @Value("${newrelic.api.key}")
+    private String key;
+
     @Bean
     public NewRelicRegistryConfig newRelicConfig() {
 
@@ -41,7 +48,7 @@ public class NewRelicMetricsExportAutoConfiguration {
             @Override
             public String apiKey() {
 
-                return System.getenv("INSIGHTS_INSERT_KEY");
+                return key;
             }
 
             @Override
@@ -53,7 +60,7 @@ public class NewRelicMetricsExportAutoConfiguration {
             @Override
             public String serviceName() {
 
-                return "My Service Name";
+                return appName;
             }
 
         };
