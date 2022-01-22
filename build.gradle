@@ -41,6 +41,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     compileOnly 'org.projectlombok:lombok'
     implementation 'com.newrelic.telemetry:micrometer-registry-new-relic:0.8.0'
+    implementation("com.newrelic.logging:logback:2.3.1")
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
