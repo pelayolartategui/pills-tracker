@@ -19,7 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public LocaleResolver localeResolver() {
 
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.US);
+        slr.setDefaultLocale(Locale.forLanguageTag("es"));
         return slr;
     }
 
