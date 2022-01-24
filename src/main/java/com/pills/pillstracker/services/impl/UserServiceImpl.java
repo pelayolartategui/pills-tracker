@@ -1,10 +1,10 @@
 package com.pills.pillstracker.services.impl;
 
-import com.pills.pillstracker.dtos.UserDto;
 import com.pills.pillstracker.exceptions.UserAlreadyExistException;
-import com.pills.pillstracker.models.ERole;
-import com.pills.pillstracker.models.Role;
-import com.pills.pillstracker.models.User;
+import com.pills.pillstracker.models.dao.ERole;
+import com.pills.pillstracker.models.dao.Role;
+import com.pills.pillstracker.models.dao.User;
+import com.pills.pillstracker.models.dtos.UserDto;
 import com.pills.pillstracker.repositories.RoleRepository;
 import com.pills.pillstracker.repositories.UserRepository;
 import com.pills.pillstracker.services.UserService;

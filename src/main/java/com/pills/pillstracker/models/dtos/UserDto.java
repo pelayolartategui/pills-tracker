@@ -1,4 +1,4 @@
-package com.pills.pillstracker.dtos;
+package com.pills.pillstracker.models.dtos;
 
 import com.pills.pillstracker.validators.tags.ContactNumberConstraint;
 import com.pills.pillstracker.validators.tags.PasswordMatches;

@@ -1,4 +1,4 @@
-package com.pills.pillstracker.models;
+package com.pills.pillstracker.models.dao;
 
 import com.pills.pillstracker.validators.tags.ContactNumberConstraint;
 import lombok.Getter;
@@ -8,6 +8,7 @@ import lombok.ToString;
 import lombok.ToString.Exclude;
 import org.hibernate.Hibernate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -32,7 +34,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "users",
+@Table(name = "\"User\"",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "contactNumber"),
@@ -75,6 +77,11 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Exclude
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY,
+        mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Exclude
+    private Set<Person> persons = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

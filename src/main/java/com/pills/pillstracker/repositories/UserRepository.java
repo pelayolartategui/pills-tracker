@@ -1,6 +1,6 @@
 package com.pills.pillstracker.repositories;
 
-import com.pills.pillstracker.models.User;
+import com.pills.pillstracker.models.dao.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

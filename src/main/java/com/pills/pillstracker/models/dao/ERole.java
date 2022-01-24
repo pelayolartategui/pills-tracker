@@ -1,4 +1,4 @@
-package com.pills.pillstracker.models;
+package com.pills.pillstracker.models.dao;
 
 public enum ERole {
     ROLE_USER,

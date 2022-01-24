@@ -1,8 +1,8 @@
 package com.pills.pillstracker.services;
 
-import com.pills.pillstracker.dtos.UserDto;
 import com.pills.pillstracker.exceptions.UserAlreadyExistException;
-import com.pills.pillstracker.models.User;
+import com.pills.pillstracker.models.dao.User;
+import com.pills.pillstracker.models.dtos.UserDto;
 
 
 public interface UserService {

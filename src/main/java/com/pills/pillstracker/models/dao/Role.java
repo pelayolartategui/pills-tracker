@@ -1,4 +1,4 @@
-package com.pills.pillstracker.models;
+package com.pills.pillstracker.models.dao;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
 
     @Id
