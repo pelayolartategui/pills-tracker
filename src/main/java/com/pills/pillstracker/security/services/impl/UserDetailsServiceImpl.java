@@ -1,6 +1,6 @@
 package com.pills.pillstracker.security.services.impl;
 
-import com.pills.pillstracker.models.dao.User;
+import com.pills.pillstracker.models.daos.User;
 import com.pills.pillstracker.repositories.UserRepository;
 import com.pills.pillstracker.security.services.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;

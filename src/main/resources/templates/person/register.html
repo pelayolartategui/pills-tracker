@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register - Brand</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
+</head>
+
+<body class="bg-gradient-primary">
+    <div class="container">
+        <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-flex">
+                        <div class="flex-grow-1 bg-register-image" style="background-image: url(&quot;../assets/img/dogs/image2.jpeg&quot;);"></div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h4 th:text="#{register.createAccount}" class="text-dark mb-4">Create an Account!</h4>
+                            </div>
+                            <form action="#" th:action="@{/person/register}" th:object="${person}" method="POST" class="user">
+                            <ul th:if="${#fields.hasErrors('*')}">
+                              <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                             </ul>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><input th:field="*{firstName}" class="form-control form-control-user" type="text" id="exampleFirstName" th:placeholder="#{register.placeholder.firstName}" name="first_name"></div>
+                                    <div class="col-sm-6"><input th:field="*{lastName}" class="form-control form-control-user" type="text" id="exampleFirstName" th:placeholder="#{register.placeholder.lastName}" name="last_name"></div>
+                                </div>
+                                <div class="mb-3"><input th:field="*{contactNumber}" class="form-control form-control-user" type="text" id="contactNumber" th:placeholder="#{register.placeholder.contactNumber}" name="contactNumber"></div>
+
+                                <button th:text="#{register.registerAction}" class="btn btn-primary d-block btn-user w-100" type="submit">Register Person</button>
+                                <hr>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/bs-init.js"></script>
+    <script src="../assets/js/theme.js"></script>
+</body>
+
+</html>

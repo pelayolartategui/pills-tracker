@@ -1,12 +1,13 @@
 package com.pills.pillstracker.services;
 
 import com.pills.pillstracker.exceptions.UserAlreadyExistException;
-import com.pills.pillstracker.models.dao.User;
-import com.pills.pillstracker.models.dtos.UserDto;
+import com.pills.pillstracker.models.daos.User;
 
 
 public interface UserService {
 
-    User registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException;
+    User getAuthenticatedUser();
+
+    User registerNewUserAccount(User user) throws UserAlreadyExistException;
 
 }

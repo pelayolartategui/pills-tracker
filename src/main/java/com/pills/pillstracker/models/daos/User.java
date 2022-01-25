@@ -1,4 +1,4 @@
-package com.pills.pillstracker.models.dao;
+package com.pills.pillstracker.models.daos;
 
 import com.pills.pillstracker.validators.tags.ContactNumberConstraint;
 import lombok.Getter;
@@ -52,7 +52,7 @@ public class User {
 
     @NotBlank
     @Size(max = 50)
-    private String firstname;
+    private String firstName;
 
     @NotBlank
     @Size(max = 50)
@@ -82,6 +82,18 @@ public class User {
         mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Exclude
     private Set<Person> persons = new HashSet<>();
+
+    public void addPerson(Person person) {
+
+        persons.add(person);
+        person.setUser(this);
+    }
+
+    public void removePerson(Person person) {
+
+        persons.add(person);
+        person.setUser(null);
+    }
 
     @Override
     public boolean equals(Object o) {

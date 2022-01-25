@@ -1,4 +1,4 @@
-package com.pills.pillstracker.models.dao;
+package com.pills.pillstracker.models.daos;
 
 import com.pills.pillstracker.validators.tags.ContactNumberConstraint;
 import lombok.Getter;

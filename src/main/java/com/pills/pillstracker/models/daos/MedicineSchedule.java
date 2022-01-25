@@ -1,4 +1,4 @@
-package com.pills.pillstracker.models.dao;
+package com.pills.pillstracker.models.daos;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,16 +20,12 @@ import javax.persistence.Table;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "medicineStore")
-public class MedicineStore {
+@Table(name = "medicineSchedule")
+public class MedicineSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private int currentStatus;
-
-    private int notificationThreshold;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Exclude

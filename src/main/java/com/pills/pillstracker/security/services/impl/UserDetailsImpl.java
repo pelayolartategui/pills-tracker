@@ -1,7 +1,7 @@
 package com.pills.pillstracker.security.services.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pills.pillstracker.models.dao.User;
+import com.pills.pillstracker.models.daos.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -114,6 +114,12 @@ public class UserDetailsImpl implements UserDetails {
         }
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.pills.pillstracker.repositories;
 
-import com.pills.pillstracker.models.dao.MedicineSchedule;
+import com.pills.pillstracker.models.daos.MedicineSchedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
