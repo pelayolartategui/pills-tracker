@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public class PersonController {
 
     private static final String PERSON_REGISTER_VIEW = "person/register";
-    private static final String PERSON_LIST_VIEW = "/person/list";
+    private static final String PERSON_LIST_VIEW = "person/list";
 
     private final ModelMapper modelMapper;
     private final PersonService personService;
