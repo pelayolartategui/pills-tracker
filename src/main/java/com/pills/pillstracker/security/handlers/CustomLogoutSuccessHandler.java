@@ -1,5 +1,6 @@
 package com.pills.pillstracker.security.handlers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+@Slf4j
 public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler implements LogoutSuccessHandler {
 
     public CustomLogoutSuccessHandler() {
@@ -25,8 +27,7 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler im
         throws IOException, ServletException {
 
         final String refererUrl = request.getHeader("Referer");
-        System.out.println(refererUrl);
-
+        log.info("logouttt");
         super.onLogoutSuccess(request, response, authentication);
     }
 

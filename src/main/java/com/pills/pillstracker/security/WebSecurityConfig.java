@@ -60,14 +60,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
             .loginPage("/login")
             .loginProcessingUrl("/login-check")
-            .defaultSuccessUrl("/person/register", true)
+            .defaultSuccessUrl("/person/list", true)
             .failureUrl("/login?error=true")
             .and()
             .logout()
             .logoutUrl("/logout")
             .invalidateHttpSession(true)
             .deleteCookies("JSESSIONID")
-            .logoutSuccessHandler(logoutSuccessHandler());
+            .logoutSuccessUrl("/login");
     }
 
     @Bean

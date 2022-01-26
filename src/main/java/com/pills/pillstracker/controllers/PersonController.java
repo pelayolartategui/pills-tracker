@@ -22,6 +22,10 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Slf4j
 @Controller()
@@ -29,7 +33,7 @@ import javax.validation.Valid;
 public class PersonController {
 
     private static final String PERSON_REGISTER_VIEW = "person/register";
-    private static final String PERSON_LIST_VIEW = "/home";
+    private static final String PERSON_LIST_VIEW = "/person/list";
 
     private final ModelMapper modelMapper;
     private final PersonService personService;
@@ -76,10 +80,27 @@ public class PersonController {
         return PERSON_LIST_VIEW;
     }
 
+    @GetMapping("/list")
+    public String getAllPersons(WebRequest request, Model model) {
+
+        log.debug("List all persons request");
+        Set<Person> people = personService.retrieveAllPersonsForUser();
+        List<PersonDto> personDtos = people
+            .stream()
+            .map(this::convertPersonToDto)
+            .collect(Collectors.toList());
+        model.addAttribute("people", personDtos);
+        return PERSON_LIST_VIEW;
+    }
+
     private Person convertPersonToEntity(PersonDto personDto) {
 
-        Person person = modelMapper.map(personDto, Person.class);
-        return person;
+        return modelMapper.map(personDto, Person.class);
+    }
+
+    private PersonDto convertPersonToDto(Person person) {
+
+        return modelMapper.map(person, PersonDto.class);
     }
 
     private ObjectError getError(PersonAlreadyExistException e) {

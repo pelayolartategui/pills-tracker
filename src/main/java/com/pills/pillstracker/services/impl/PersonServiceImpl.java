@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.util.Set;
+
 
 @Slf4j
 @Service
@@ -33,6 +35,12 @@ public class PersonServiceImpl implements PersonService {
         User parentUser = userService.getAuthenticatedUser();
         parentUser.addPerson(person);
         return personRepository.save(person);
+    }
+
+    @Override
+    public Set<Person> retrieveAllPersonsForUser() {
+
+        return userService.getAuthenticatedUser().getPersons();
     }
 
     private void checkExistingFields(Person person) throws PersonAlreadyExistException {
