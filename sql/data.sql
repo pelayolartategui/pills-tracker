@@ -1,6 +1,6 @@
-INSERT INTO public.roles (name)
+INSERT INTO public.role (name)
 VALUES ('ROLE_ADMIN');
-INSERT INTO public.roles (name)
+INSERT INTO public.role (name)
 VALUES ('ROLE_USER');
-INSERT INTO public.roles (name)
+INSERT INTO public.role (name)
 VALUES ('ROLE_CAREGIVER');
