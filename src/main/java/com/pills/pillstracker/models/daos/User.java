@@ -91,7 +91,7 @@ public class User {
 
     public void removePerson(Person person) {
 
-        persons.add(person);
+        persons.remove(person);
         person.setUser(null);
     }
 
